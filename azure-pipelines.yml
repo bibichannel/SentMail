@@ -22,6 +22,7 @@ jobs:
 
   - script: |
       docker build -t backend-dev:latest --build-arg="STAGE=development" --build-arg="PORT=4000" .
+      echo "success"
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)'
@@ -32,5 +33,5 @@ jobs:
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      ArtifactName: 'sentMail.zip'
+      ArtifactName: 'sentMail-be-dev.zip'
       publishLocation: 'Container'
