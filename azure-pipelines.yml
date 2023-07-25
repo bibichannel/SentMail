@@ -14,23 +14,22 @@ jobs:
       wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/entrypoint.sh
 
   - script: |
-      python3 -m pip install --upgrade pip
-      pip3 install -r requirements.txt
       ls -la
-      pwd
-      cat entrypoint.sh
-      echo $(Build.BinariesDirectory)
+      echo "Build.ArtifactStagingDirectory -> $(Build.ArtifactStagingDirectory)"
+      echo "Build.BinariesDirectory -> $(Build.BinariesDirectory)"
+      echo "Build.SourcesDirectory -> $(Build.SourcesDirectory)"
+      echo "pwd -> $(pwd)"
     displayName: 'Install dependencies'
 
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(Build.BinariesDirectory)'
-      includeRootFolder: true
+      rootFolderOrFile: '$(Build.SourcesDirectory)'
+      includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: '$(Build.BuildId).zip'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      ArtifactName: 'sentMail.zip'
       publishLocation: 'Container'
