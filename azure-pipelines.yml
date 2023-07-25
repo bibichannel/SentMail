@@ -9,8 +9,8 @@ jobs:
     name: 'Runner-01'
   steps:
   - script: |
-      wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/development/Dockerfile.dev
-      wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/entrypoint.sh
+      wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/Dockerfile
+      wget https://github.com/bibichannel/greenblue-deployment/blob/main/backend/entrypoint.sh
 
   - script: |
       ls -la
@@ -20,6 +20,8 @@ jobs:
       echo "pwd -> $(pwd)"
     displayName: 'Install dependencies'
 
+  - script: |
+      docker build -t backend-dev:latest --build-arg="STAGE=development" --build-arg="PORT=4000" .
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)'
