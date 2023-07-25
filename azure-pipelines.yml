@@ -10,7 +10,6 @@ jobs:
   steps:
   - script: |
       wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/development/Dockerfile.dev
-      wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/development/docker-compose.dev.yml
       wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/entrypoint.sh
 
   - script: |
