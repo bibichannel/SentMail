@@ -1,0 +1,36 @@
+trigger:
+- main
+
+jobs:
+- job: 'build'
+  displayName: 'build-app'
+  continueOnError: false
+  pool:
+    name: 'Runner-01'
+  steps:
+  - script: |
+      wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/development/Dockerfile.dev
+      wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/development/docker-compose.dev.yml
+      wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/entrypoint.sh
+
+  - script: |
+      python3 -m pip install --upgrade pip
+      pip3 install -r requirements.txt
+      ls -la
+      pwd
+      cat entrypoint.sh
+      echo $(Build.BinariesDirectory)
+    displayName: 'Install dependencies'
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.BinariesDirectory)'
+      includeRootFolder: true
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: '$(Build.BuildId).zip'
+      publishLocation: 'Container'
