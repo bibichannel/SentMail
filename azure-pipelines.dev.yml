@@ -16,6 +16,8 @@ jobs:
   - script: |
       docker build -t backend-dev:latest --build-arg="STAGE=development" --build-arg="PORT=4000" .
       echo "this is azure-pipeline.dev.yml in develop branch"
+      echo
+      cat requierment.txt
     displayName: 'Build image'
   - task: ArchiveFiles@2
     inputs:
