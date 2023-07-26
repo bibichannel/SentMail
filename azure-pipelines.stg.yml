@@ -1,5 +1,5 @@
 trigger:
-- master
+- staging
 
 jobs:
 - job: 'build'
@@ -14,8 +14,9 @@ jobs:
     displayName: 'Get necessary files on github repository'
 
   - script: |
-      docker build -t backend-dev:latest --build-arg="STAGE=development" --build-arg="PORT=4000" .
-      echo "success"
+      docker build -t backend-stg:latest --build-arg="STAGE=staging" --build-arg="PORT=3000" .
+      cat requierment.txt
+      echo "This is file azure-pipeline.stg.yml"
     displayName: 'Build image'
   - task: ArchiveFiles@2
     inputs:
