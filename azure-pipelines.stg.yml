@@ -16,10 +16,10 @@ jobs:
   - script: |
       docker build -t backend-stg:latest --build-arg="STAGE=staging" --build-arg="PORT=3000" .
       cat requierment.txt
-      echo "This is file azure-pipeline.stg.yml"
-      cat requierment.txt
+      echo
+      echo "This is file azure-pipeline.stg.yml on branch staging"
     displayName: 'Build image'
-    
+
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)'
