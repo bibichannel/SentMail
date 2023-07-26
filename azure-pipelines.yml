@@ -10,18 +10,13 @@ jobs:
   steps:
   - script: |
       wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/Dockerfile
-      wget https://github.com/bibichannel/greenblue-deployment/blob/main/backend/entrypoint.sh
-
-  - script: |
-      ls -la
-      echo "Build.ArtifactStagingDirectory -> $(Build.ArtifactStagingDirectory)"
-      echo "Build.SourcesDirectory -> $(Build.SourcesDirectory)"
-      echo "pwd -> $(pwd)"
-    displayName: 'Install dependencies'
+      wget https://raw.githubusercontent.com/bibichannel/greenblue-deployment/main/backend/entrypoint.sh
+    displayName: 'Get necessary files on github repository'
 
   - script: |
       docker build -t backend-dev:latest --build-arg="STAGE=development" --build-arg="PORT=4000" .
       echo "success"
+    displayName: 'Build image'
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.SourcesDirectory)'
