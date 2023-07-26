@@ -15,7 +15,7 @@ jobs:
 
   - script: |
       docker build -t backend-stg:latest --build-arg="STAGE=staging" --build-arg="PORT=3000" .
-      echo "success"
+      cat requierment.txt
     displayName: 'Build image'
   - task: ArchiveFiles@2
     inputs:
