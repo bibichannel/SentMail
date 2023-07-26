@@ -15,7 +15,6 @@ jobs:
   - script: |
       ls -la
       echo "Build.ArtifactStagingDirectory -> $(Build.ArtifactStagingDirectory)"
-      echo "Build.BinariesDirectory -> $(Build.BinariesDirectory)"
       echo "Build.SourcesDirectory -> $(Build.SourcesDirectory)"
       echo "pwd -> $(pwd)"
     displayName: 'Install dependencies'
